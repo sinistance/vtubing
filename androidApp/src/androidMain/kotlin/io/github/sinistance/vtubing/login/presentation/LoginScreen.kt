@@ -1,4 +1,4 @@
-package io.github.sinistance.vtubing.screen
+package io.github.sinistance.vtubing.login.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -8,10 +8,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.AlertDialog
 import androidx.compose.material.Button
 import androidx.compose.material.Checkbox
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -22,14 +25,27 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.github.sinistance.vtubing.R
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun LoginScreen() {
-    LoginScreenContent()
+fun LoginScreen(
+    viewModel: LoginViewModel = koinViewModel()
+) {
+    val uiState = viewModel.uiState.collectAsState()
+    LoginScreenContent(
+        uiState = uiState.value,
+        onLoginClick = {
+            viewModel.login()
+        }
+    )
 }
 
 @Composable
-fun LoginScreenContent(modifier: Modifier = Modifier) {
+fun LoginScreenContent(
+    modifier: Modifier = Modifier,
+    uiState: LoginUiState = LoginUiState(),
+    onLoginClick: () -> Unit = {},
+) {
     var checked by remember { mutableStateOf(false) }
     Box(
         modifier = modifier.fillMaxSize(),
@@ -57,9 +73,20 @@ fun LoginScreenContent(modifier: Modifier = Modifier) {
                 )
                 Text(text = "By signing up, you agree to our Terms and Conditions and Privacy Policy")
             }
-            Button(onClick = {}) {
+            Button(onClick = onLoginClick) {
                 Text(text = "Google")
             }
+        }
+        if (uiState.loading) {
+            AlertDialog(
+                text = {
+                    Box(modifier = modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                        CircularProgressIndicator()
+                    }
+                },
+                onDismissRequest = {},
+                confirmButton = {}
+            )
         }
     }
 }

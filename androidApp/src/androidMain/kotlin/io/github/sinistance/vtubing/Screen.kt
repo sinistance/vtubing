@@ -1,4 +1,4 @@
-package io.github.sinistance.vtubing.screen
+package io.github.sinistance.vtubing
 
 import kotlinx.serialization.Serializable
 

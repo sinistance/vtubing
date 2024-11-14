@@ -1,4 +1,4 @@
-package io.github.sinistance.vtubing.screen
+package io.github.sinistance.vtubing.home.presentation
 
 import androidx.compose.runtime.Composable
 
