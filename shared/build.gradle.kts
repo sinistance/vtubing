@@ -31,6 +31,14 @@ kotlin {
             implementation(libs.kotlinx.serialization.json)
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
+            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.ktor.client.core)
+        }
+        androidMain.dependencies {
+            implementation(libs.ktor.client.okhttp)
+        }
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
         }
     }
 }

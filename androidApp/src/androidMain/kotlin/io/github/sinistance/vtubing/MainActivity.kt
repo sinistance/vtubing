@@ -1,4 +1,4 @@
-package io.github.sinistance.vtubing.main.presentation
+package io.github.sinistance.vtubing
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,6 +11,7 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
+import io.github.sinistance.vtubing.main.presentation.MainScreen
 import org.koin.compose.KoinContext
 
 class MainActivity : ComponentActivity() {

@@ -12,6 +12,7 @@ import androidx.navigation.compose.composable
 import io.github.sinistance.vtubing.home.presentation.HomeScreen
 import io.github.sinistance.vtubing.login.presentation.LoginScreen
 import io.github.sinistance.vtubing.main.presentation.NavigationItem
+import io.github.sinistance.vtubing.mypage.presentation.MyPageScreen
 
 @Composable
 fun AppNavigation(
@@ -38,10 +39,10 @@ fun AppNavigation(
             HomeScreen()
         }
         composable<Route.Broadcast> {
-            HomeScreen()
+            TODO()
         }
         composable<Route.MyPage> {
-            HomeScreen()
+            MyPageScreen()
         }
     }
 }

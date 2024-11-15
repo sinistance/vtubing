@@ -64,6 +64,11 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.compose)
     implementation(libs.koin.compose.navigation)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.coil.compose.core)
+    implementation(libs.coil.compose)
+    implementation(libs.coil)
+    implementation(libs.coil.network.ktor)
     debugImplementation(libs.androidx.ui.tooling)
 }
 

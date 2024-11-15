@@ -9,6 +9,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -16,31 +17,38 @@ import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.serialization.generateHashCode
 import io.github.sinistance.vtubing.navigation.AppNavigation
 import io.github.sinistance.vtubing.navigation.Route
 import io.github.sinistance.vtubing.navigation.bottomNavItems
 import io.github.sinistance.vtubing.navigation.bottomNavRoutes
-import kotlinx.serialization.serializer
+import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
-    navController: NavHostController
+    navController: NavHostController,
+    viewModel: MainViewModel = koinViewModel()
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
     val currentDestinationId = currentDestination?.id
+    val uiState = viewModel.uiState.collectAsState()
+
+    viewModel.showBottomNav(currentDestinationId in bottomNavRoutes.map { it.id })
+
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text("VTubing")
-                }
-            )
+            val title = uiState.value.title
+            if (title != null) {
+                TopAppBar(
+                    title = {
+                        Text(text = title)
+                    }
+                )
+            }
         },
         bottomBar = {
-            if (currentDestinationId in bottomNavRoutes.map { it.id }) {
+            if (uiState.value.showBottomNav) {
                 NavigationBar {
                     bottomNavItems.forEach { item ->
                         NavigationBarItem(
