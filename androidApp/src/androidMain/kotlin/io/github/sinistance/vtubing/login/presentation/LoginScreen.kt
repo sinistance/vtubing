@@ -29,15 +29,19 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun LoginScreen(
-    viewModel: LoginViewModel = koinViewModel()
+    viewModel: LoginViewModel = koinViewModel(),
+    onLoginSuccess: () -> Unit = {},
 ) {
     val uiState = viewModel.uiState.collectAsState()
     LoginScreenContent(
         uiState = uiState.value,
         onLoginClick = {
             viewModel.login()
-        }
+        },
     )
+    if (uiState.value.loginSuccess) {
+        onLoginSuccess()
+    }
 }
 
 @Composable

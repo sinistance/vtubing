@@ -12,22 +12,14 @@ class LoginViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(LoginUiState())
     val uiState: StateFlow<LoginUiState> get() = _uiState
 
-    init {
-        println("LoginViewModel init...")
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        println("LoginViewModel cleared...")
-    }
-
     fun login() = viewModelScope.launch {
         _uiState.value = _uiState.value.copy(
             loading = true,
         )
-        delay(5000)
+        delay(2000)
         _uiState.value = _uiState.value.copy(
             loading = false,
+            loginSuccess = true,
         )
     }
 }

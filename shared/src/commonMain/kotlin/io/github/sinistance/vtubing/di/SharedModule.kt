@@ -1,5 +1,7 @@
 package io.github.sinistance.vtubing.di
 
-import org.koin.dsl.module
+import io.github.sinistance.vtubing.home.di.sharedHomeModule
 
-val sharedModule = module {  }
+val sharedModule = listOf(
+    sharedHomeModule,
+)
