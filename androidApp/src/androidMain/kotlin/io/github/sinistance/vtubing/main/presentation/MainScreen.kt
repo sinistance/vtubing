@@ -18,9 +18,9 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import io.github.sinistance.vtubing.navigation.AppNavigation
-import io.github.sinistance.vtubing.navigation.Route
+import io.github.sinistance.vtubing.navigation.Screen
 import io.github.sinistance.vtubing.navigation.bottomNavItems
-import io.github.sinistance.vtubing.navigation.bottomNavRoutes
+import io.github.sinistance.vtubing.navigation.bottomNavScreens
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -34,7 +34,7 @@ fun MainScreen(
     val currentDestinationId = currentDestination?.id
     val uiState = viewModel.uiState.collectAsState()
 
-    viewModel.showBottomNav(currentDestinationId in bottomNavRoutes.map { it.id })
+    viewModel.showBottomNav(currentDestinationId in bottomNavScreens.map { it.id })
 
     Scaffold(
         topBar = {
@@ -54,10 +54,10 @@ fun MainScreen(
                         NavigationBarItem(
                             icon = { Icon(item.icon, contentDescription = null) },
                             label = { Text(item.label) },
-                            selected = currentDestination?.hierarchy?.any { it.hasRoute(item.route::class) } == true,
+                            selected = currentDestination?.hierarchy?.any { it.hasRoute(item.screen::class) } == true,
                             onClick = {
-                                if (currentDestinationId != item.route.id) {
-                                    navController.navigate(item.route) {
+                                if (currentDestinationId != item.screen.id) {
+                                    navController.navigate(item.screen) {
                                         popUpTo(navController.graph.startDestinationId)
                                         launchSingleTop = true
                                     }
@@ -76,4 +76,4 @@ fun MainScreen(
     }
 }
 
-data class NavigationItem(val route: Route, val label: String, val icon: ImageVector)
+data class NavigationItem(val screen: Screen, val label: String, val icon: ImageVector)

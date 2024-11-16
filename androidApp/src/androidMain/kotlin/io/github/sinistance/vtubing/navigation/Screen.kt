@@ -2,26 +2,26 @@ package io.github.sinistance.vtubing.navigation
 
 import kotlinx.serialization.Serializable
 
-sealed interface Route {
+sealed interface Screen {
 
     val id: Int
         get() = hashCode()
 
     @Serializable
-    data object Login : Route
+    data object Login : Screen
 
     @Serializable
-    data object Home : Route
+    data object Home : Screen
 
     @Serializable
-    data object MyPage : Route
+    data object MyPage : Screen
 
     @Serializable
-    data object Broadcast : Route
+    data object Broadcast : Screen
 
     @Serializable
-    data object Stream : Route
+    data object Stream : Screen
 
     @Serializable
-    data object Setting : Route
+    data object Setting : Screen
 }

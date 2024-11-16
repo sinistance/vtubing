@@ -22,39 +22,46 @@ fun AppNavigation(
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = Route.Login
+        startDestination = Screen.Login
     ) {
-        composable<Route.Login> {
+        composable<Screen.Login> {
             LoginScreen(
                 onLoginSuccess = {
-                    navController.navigate(Route.Home) {
-                        popUpTo(Route.Login) {
+                    navController.navigate(Screen.Home) {
+                        popUpTo(Screen.Login) {
                             inclusive = true
                         }
                     }
                 }
             )
         }
-        composable<Route.Home> {
-            HomeScreen()
+        composable<Screen.Home> {
+            HomeScreen(
+                onItemClick = {
+                    navController.navigate(Screen.Stream)
+                }
+            )
         }
-        composable<Route.Broadcast> {
+        composable<Screen.Stream> {
             TODO()
         }
-        composable<Route.MyPage> {
+        composable<Screen.Broadcast> {
+            TODO()
+        }
+        composable<Screen.MyPage> {
             MyPageScreen()
         }
     }
 }
 
 val bottomNavItems = listOf(
-    NavigationItem(Route.Home, "Home", Icons.Filled.Home),
-    NavigationItem(Route.Broadcast, "Broadcast", Icons.Filled.AddCircle),
-    NavigationItem(Route.MyPage, "MyPage", Icons.Filled.Person),
+    NavigationItem(Screen.Home, "Home", Icons.Filled.Home),
+    NavigationItem(Screen.Broadcast, "Broadcast", Icons.Filled.AddCircle),
+    NavigationItem(Screen.MyPage, "MyPage", Icons.Filled.Person),
 )
 
-val bottomNavRoutes = listOf(
-    Route.Home,
-    Route.Broadcast,
-    Route.MyPage,
+val bottomNavScreens = listOf(
+    Screen.Home,
+    Screen.Broadcast,
+    Screen.MyPage,
 )
