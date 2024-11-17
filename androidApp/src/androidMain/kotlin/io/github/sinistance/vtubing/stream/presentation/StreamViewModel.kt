@@ -1,13 +1,10 @@
 package io.github.sinistance.vtubing.stream.presentation
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import io.github.sinistance.vtubing.bus.EventBus
 import io.github.sinistance.vtubing.bus.MainEvent
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 
 class StreamViewModel : ViewModel() {
 
@@ -18,15 +15,15 @@ class StreamViewModel : ViewModel() {
         EventBus.post(MainEvent(title = null))
     }
 
-    fun fetchStream(url: String) {
-        viewModelScope.launch {
-            _uiState.value = uiState.value.copy(
-                loading = true,
-            )
-            delay(3000)
-            _uiState.value = uiState.value.copy(
-                loading = false,
-            )
-        }
+    fun fetchStream() {
+        _uiState.value = uiState.value.copy(
+            loading = true,
+        )
+    }
+
+    fun streamReady() {
+        _uiState.value = uiState.value.copy(
+            loading = false,
+        )
     }
 }

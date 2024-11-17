@@ -14,10 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -46,45 +43,50 @@ fun StreamScreen(
     val uiState = viewModel.uiState.collectAsState()
 
     LaunchedEffect(streamUrl) {
-        viewModel.fetchStream(streamUrl)
+        viewModel.fetchStream()
     }
 
     StreamScreenContent(
         uiState = uiState.value,
         name = name,
         photoUrl = photoUrl,
-        streamUrl = streamUrl
+        streamUrl = streamUrl,
+        streamReady = { viewModel.streamReady() },
     )
 }
 
 @Composable
-fun StreamScreenContent(
+private fun StreamScreenContent(
     modifier: Modifier = Modifier,
     uiState: StreamUiState = StreamUiState(),
     name: String,
     photoUrl: String,
     streamUrl: String,
+    streamReady: () -> Unit,
 ) {
     Box(
         modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,
     ) {
         StreamingScreen(
+            loading = uiState.loading,
             name = name,
             photoUrl = photoUrl,
             streamingUrl = streamUrl,
+            streamReady = streamReady,
         )
     }
 }
 
 @Composable
 private fun StreamingScreen(
+    loading: Boolean,
     name: String,
     photoUrl: String,
     streamingUrl: String,
+    streamReady: () -> Unit,
 ) {
     val context = LocalContext.current
-    var initialBuffering by remember { mutableStateOf(true) }
     val exoPlayer = remember {
         ExoPlayer.Builder(context)
             .build().apply {
@@ -102,7 +104,7 @@ private fun StreamingScreen(
                 addListener(object : Player.Listener {
                     override fun onPlaybackStateChanged(playbackState: Int) {
                         when (playbackState) {
-                            Player.STATE_READY -> initialBuffering = false
+                            Player.STATE_READY -> streamReady()
                             else -> { /* No action needed for other states */
                             }
                         }
@@ -118,7 +120,7 @@ private fun StreamingScreen(
     }
 
     VideoPlayer(exoPlayer)
-    if (initialBuffering) {
+    if (loading) {
         LoadingScreen(
             name = name,
             photoUrl = photoUrl
@@ -164,8 +166,8 @@ private fun LoadingScreen(
             AsyncImage(
                 modifier = Modifier
                     .size(180.dp)
-                    .clip(RoundedCornerShape(8.dp))
-                    .padding(bottom = 10.dp),
+                    .padding(bottom = 10.dp)
+                    .clip(RoundedCornerShape(8.dp)),
                 model = photoUrl,
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
@@ -188,6 +190,7 @@ private fun StreamScreenContentPreview() {
         ),
         name = "huha",
         photoUrl = "ajsd",
-        streamUrl = ""
+        streamUrl = "",
+        streamReady = {}
     )
 }
