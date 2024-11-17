@@ -9,10 +9,13 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.toRoute
 import io.github.sinistance.vtubing.home.presentation.HomeScreen
 import io.github.sinistance.vtubing.login.presentation.LoginScreen
 import io.github.sinistance.vtubing.main.presentation.NavigationItem
 import io.github.sinistance.vtubing.mypage.presentation.MyPageScreen
+import io.github.sinistance.vtubing.people.domain.entity.Person
+import io.github.sinistance.vtubing.stream.presentation.StreamScreen
 
 @Composable
 fun AppNavigation(
@@ -38,12 +41,23 @@ fun AppNavigation(
         composable<Screen.Home> {
             HomeScreen(
                 onItemClick = {
-                    navController.navigate(Screen.Stream)
+                    navController.navigate(
+                        Screen.Stream(
+                            name = it.name,
+                            photoUrl = it.photoUrl,
+                            streamUrl = it.streamUrl,
+                        )
+                    )
                 }
             )
         }
         composable<Screen.Stream> {
-            TODO()
+            val stream = it.toRoute<Screen.Stream>()
+            StreamScreen(
+                name = stream.name,
+                photoUrl = stream.photoUrl,
+                streamUrl = stream.streamUrl,
+            )
         }
         composable<Screen.Broadcast> {
             TODO()

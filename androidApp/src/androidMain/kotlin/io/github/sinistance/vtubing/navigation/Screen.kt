@@ -20,7 +20,11 @@ sealed interface Screen {
     data object Broadcast : Screen
 
     @Serializable
-    data object Stream : Screen
+    data class Stream(
+        val name: String,
+        val photoUrl: String,
+        val streamUrl: String,
+    ) : Screen
 
     @Serializable
     data object Setting : Screen

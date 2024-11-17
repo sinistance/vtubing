@@ -102,7 +102,7 @@ private fun GridItem(
             modifier = Modifier
                 .size(180.dp)
                 .clip(RoundedCornerShape(8.dp)),
-            model = "https://vieraboschkova.github.io/swapi-gallery/static/assets/img/people/${person.id}.jpg",
+            model = person.photoUrl,
             contentDescription = null,
             contentScale = ContentScale.Crop,
         )

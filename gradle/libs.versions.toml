@@ -9,6 +9,9 @@ coreSplashscreen = "1.0.1"
 kotlin = "2.0.21"
 coroutines = "1.8.0"
 kotlinxSerializationJson = "1.7.3"
+media3Exoplayer = "1.4.1"
+media3ExoplayerHls = "1.4.1"
+media3Ui = "1.4.1"
 navigationCompose = "2.8.3"
 compose = "2024.11.00"
 koin = "4.0.0"
@@ -19,6 +22,9 @@ coilComposeCore = "3.0.3"
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 androidx-foundation = { module = "androidx.compose.foundation:foundation" }
 androidx-material3 = { module = "androidx.compose.material3:material3" }
+androidx-media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "media3Exoplayer" }
+androidx-media3-exoplayer-hls = { module = "androidx.media3:media3-exoplayer-hls", version.ref = "media3ExoplayerHls" }
+androidx-media3-ui = { module = "androidx.media3:media3-ui", version.ref = "media3Ui" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 androidx-material = { group = "com.google.android.material", name = "material", version.ref = "androidx-material" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
