@@ -10,6 +10,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import io.github.sinistance.vtubing.broadcast.presentation.BroadcastScreen
 import io.github.sinistance.vtubing.home.presentation.HomeScreen
 import io.github.sinistance.vtubing.login.presentation.LoginScreen
 import io.github.sinistance.vtubing.main.presentation.NavigationItem
@@ -60,7 +61,7 @@ fun AppNavigation(
             )
         }
         composable<Screen.Broadcast> {
-            TODO()
+            BroadcastScreen()
         }
         composable<Screen.MyPage> {
             MyPageScreen()

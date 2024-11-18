@@ -1,5 +1,6 @@
 package io.github.sinistance.vtubing.di
 
+import io.github.sinistance.vtubing.broadcast.di.broadcastModule
 import io.github.sinistance.vtubing.home.di.homeModule
 import io.github.sinistance.vtubing.login.di.loginModule
 import io.github.sinistance.vtubing.main.di.mainModule
@@ -12,4 +13,5 @@ val appModule = listOf(
     homeModule,
     myPageModule,
     streamModule,
+    broadcastModule,
 )

@@ -27,6 +27,7 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
+        multiDexEnabled = true
     }
     packaging {
         resources {
@@ -44,6 +45,11 @@ android {
     }
     buildFeatures {
         compose = true
+    }
+    sourceSets {
+        getByName("main") {
+            java.srcDir("src/androidMain/java")
+        }
     }
 }
 
@@ -72,6 +78,9 @@ dependencies {
     implementation(libs.androidx.media3.exoplayer)
     implementation(libs.androidx.media3.exoplayer.hls)
     implementation(libs.androidx.media3.ui)
+    implementation(files("libs/Live2DCubismCore.aar"))
+    implementation(files("libs/Live2DCubismFramework.aar"))
+    implementation("androidx.multidex:multidex:2.0.1")
     debugImplementation(libs.androidx.ui.tooling)
 }
 
