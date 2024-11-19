@@ -124,11 +124,11 @@ public class LAppDefine {
         /**
          * Gear image file
          */
-        GEAR_IMAGE("icon_gear.png"),
+//        GEAR_IMAGE("icon_gear.png"),
         /**
          * Power button image file
          */
-        POWER_IMAGE("close.png"),
+//        POWER_IMAGE("close.png"),
         /**
          * Vertex shader file
          */

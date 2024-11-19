@@ -16,7 +16,7 @@ class LoginViewModel : ViewModel() {
         _uiState.value = _uiState.value.copy(
             loading = true,
         )
-        delay(2000)
+        delay(500)
         _uiState.value = _uiState.value.copy(
             loading = false,
             loginSuccess = true,

@@ -92,13 +92,16 @@ public class LAppLive2DManager {
 
             projection.loadIdentity();
 
-            if (model.getModel().getCanvasWidth() > 1.0f && width < height) {
+//            if (model.getModel().getCanvasWidth() > 1.0f && width < height) {
                 // 横に長いモデルを縦長ウィンドウに表示する際モデルの横サイズでscaleを算出する
-                model.getModelMatrix().setWidth(2.0f);
-                projection.scale(1.0f, (float) width / (float) height);
-            } else {
-                projection.scale((float) height / (float) width, 1.0f);
-            }
+//                model.getModelMatrix().setWidth(2.0f);
+//                projection.scale(1.0f, (float) width / (float) height);
+//            } else {
+                float xx = (float) height / (float) width;
+                float yy = 1.0f;
+                projection.scale(xx*2f, yy*2f);
+                projection.translateY(-1.5f);
+//            }
 
             // 必要があればここで乗算する
             if (viewMatrix != null) {

@@ -126,34 +126,34 @@ public class LAppDelegate {
     }
 
 
-    public void onTouchBegan(float x, float y) {
-        mouseX = x;
-        mouseY = y;
+//    public void onTouchBegan(float x, float y) {
+//        mouseX = x;
+//        mouseY = y;
+//
+//        if (view != null) {
+//            isCaptured = true;
+//            view.onTouchesBegan(mouseX, mouseY);
+//        }
+//    }
 
-        if (view != null) {
-            isCaptured = true;
-            view.onTouchesBegan(mouseX, mouseY);
-        }
-    }
+//    public void onTouchEnd(float x, float y) {
+//        mouseX = x;
+//        mouseY = y;
+//
+//        if (view != null) {
+//            isCaptured = false;
+//            view.onTouchesEnded(mouseX, mouseY);
+//        }
+//    }
 
-    public void onTouchEnd(float x, float y) {
-        mouseX = x;
-        mouseY = y;
-
-        if (view != null) {
-            isCaptured = false;
-            view.onTouchesEnded(mouseX, mouseY);
-        }
-    }
-
-    public void onTouchMoved(float x, float y) {
-        mouseX = x;
-        mouseY = y;
-
-        if (isCaptured && view != null) {
-            view.onTouchesMoved(mouseX, mouseY);
-        }
-    }
+//    public void onTouchMoved(float x, float y) {
+//        mouseX = x;
+//        mouseY = y;
+//
+//        if (isCaptured && view != null) {
+//            view.onTouchesMoved(mouseX, mouseY);
+//        }
+//    }
 
     // getter, setter群
     public Activity getActivity() {

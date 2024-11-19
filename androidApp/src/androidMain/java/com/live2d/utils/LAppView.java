@@ -91,8 +91,8 @@ public class LAppView implements AutoCloseable {
         // x,yは画像の中心座標
         float x = windowWidth * 0.5f;
         float y = windowHeight * 0.5f;
-        float fWidth = backgroundTexture.width * 2.0f;
-        float fHeight = windowHeight * 0.95f;
+        float fWidth = backgroundTexture.width * 2.5f;
+        float fHeight = windowHeight * 1f;
 
         int programId = spriteShader.getShaderId();
 
@@ -103,44 +103,44 @@ public class LAppView implements AutoCloseable {
         }
 
         // 歯車画像の読み込み
-        LAppTextureManager.TextureInfo gearTexture = textureManager.createTextureFromPngFile(ResourcePath.ROOT.getPath() + ResourcePath.GEAR_IMAGE.getPath());
+//        LAppTextureManager.TextureInfo gearTexture = textureManager.createTextureFromPngFile(ResourcePath.ROOT.getPath() + ResourcePath.GEAR_IMAGE.getPath());
 
 
-        x = windowWidth - gearTexture.width * 0.5f - 96.f;
-        y = windowHeight - gearTexture.height * 0.5f;
-        fWidth = (float) gearTexture.width;
-        fHeight = (float) gearTexture.height;
+//        x = windowWidth - gearTexture.width * 0.5f - 96.f;
+//        y = windowHeight - gearTexture.height * 0.5f;
+//        fWidth = (float) gearTexture.width;
+//        fHeight = (float) gearTexture.height;
 
-        if (gearSprite == null) {
-            gearSprite = new LAppSprite(x, y, fWidth, fHeight, gearTexture.id, programId);
-        } else {
-            gearSprite.resize(x, y, fWidth, fHeight);
-        }
+//        if (gearSprite == null) {
+//            gearSprite = new LAppSprite(x, y, fWidth, fHeight, gearTexture.id, programId);
+//        } else {
+//            gearSprite.resize(x, y, fWidth, fHeight);
+//        }
 
         // 電源画像の読み込み
-        LAppTextureManager.TextureInfo powerTexture = textureManager.createTextureFromPngFile(ResourcePath.ROOT.getPath() + ResourcePath.POWER_IMAGE.getPath());
+//        LAppTextureManager.TextureInfo powerTexture = textureManager.createTextureFromPngFile(ResourcePath.ROOT.getPath() + ResourcePath.POWER_IMAGE.getPath());
 
 
-        x = windowWidth - powerTexture.width * 0.5f - 96.0f;
-        y = powerTexture.height * 0.5f;
-        fWidth = (float) powerTexture.width;
-        fHeight = (float) powerTexture.height;
+//        x = windowWidth - powerTexture.width * 0.5f - 96.0f;
+//        y = powerTexture.height * 0.5f;
+//        fWidth = (float) powerTexture.width;
+//        fHeight = (float) powerTexture.height;
 
-        if (powerSprite == null) {
-            powerSprite = new LAppSprite(x, y, fWidth, fHeight, powerTexture.id, programId);
-        } else {
-            powerSprite.resize(x, y, fWidth, fHeight);
-        }
+//        if (powerSprite == null) {
+//            powerSprite = new LAppSprite(x, y, fWidth, fHeight, powerTexture.id, programId);
+//        } else {
+//            powerSprite.resize(x, y, fWidth, fHeight);
+//        }
 
         // 画面全体を覆うサイズ
-        x = windowWidth * 0.5f;
-        y = windowHeight * 0.5f;
+//        x = windowWidth * 0.5f;
+//        y = windowHeight * 0.5f;
 
-        if (renderingSprite == null) {
-            renderingSprite = new LAppSprite(x, y, windowWidth, windowHeight, 0, programId);
-        } else {
-            renderingSprite.resize(x, y, windowWidth, windowHeight);
-        }
+//        if (renderingSprite == null) {
+//            renderingSprite = new LAppSprite(x, y, windowWidth, windowHeight, 0, programId);
+//        } else {
+//            renderingSprite.resize(x, y, windowWidth, windowHeight);
+//        }
     }
 
     // 描画する
@@ -150,44 +150,44 @@ public class LAppView implements AutoCloseable {
         int maxHeight = LAppDelegate.getInstance().getWindowHeight();
 
         backSprite.setWindowSize(maxWidth, maxHeight);
-        gearSprite.setWindowSize(maxWidth, maxHeight);
-        powerSprite.setWindowSize(maxWidth, maxHeight);
+//        gearSprite.setWindowSize(maxWidth, maxHeight);
+//        powerSprite.setWindowSize(maxWidth, maxHeight);
 
         // UIと背景の描画
         backSprite.render();
-        gearSprite.render();
-        powerSprite.render();
+//        gearSprite.render();
+//        powerSprite.render();
 
-        if (isChangedModel) {
-            isChangedModel = false;
-            LAppLive2DManager.getInstance().nextScene();
-        }
+//        if (isChangedModel) {
+//            isChangedModel = false;
+//            LAppLive2DManager.getInstance().nextScene();
+//        }
 
         // モデルの描画
         LAppLive2DManager live2dManager = LAppLive2DManager.getInstance();
         live2dManager.onUpdate();
 
         // 各モデルが持つ描画ターゲットをテクスチャとする場合
-        if (renderingTarget == RenderingTarget.MODEL_FRAME_BUFFER && renderingSprite != null) {
-            final float[] uvVertex = {
-                1.0f, 1.0f,
-                0.0f, 1.0f,
-                0.0f, 0.0f,
-                1.0f, 0.0f
-            };
-
-            for (int i = 0; i < live2dManager.getModelNum(); i++) {
-                LAppModel model = live2dManager.getModel(i);
-                float alpha = i < 1 ? 1.0f : model.getOpacity();    // 片方のみ不透明度を取得できるようにする。
-
-                renderingSprite.setColor(1.0f, 1.0f, 1.0f, alpha);
-
-                if (model != null) {
-                    renderingSprite.setWindowSize(maxWidth, maxHeight);
-                    renderingSprite.renderImmediate(model.getRenderingBuffer().getColorBuffer()[0], uvVertex);
-                }
-            }
-        }
+//        if (renderingTarget == RenderingTarget.MODEL_FRAME_BUFFER && renderingSprite != null) {
+//            final float[] uvVertex = {
+//                1.0f, 1.0f,
+//                0.0f, 1.0f,
+//                0.0f, 0.0f,
+//                1.0f, 0.0f
+//            };
+//
+//            for (int i = 0; i < live2dManager.getModelNum(); i++) {
+//                LAppModel model = live2dManager.getModel(i);
+//                float alpha = i < 1 ? 1.0f : model.getOpacity();    // 片方のみ不透明度を取得できるようにする。
+//
+//                renderingSprite.setColor(1.0f, 1.0f, 1.0f, alpha);
+//
+//                if (model != null) {
+//                    renderingSprite.setWindowSize(maxWidth, maxHeight);
+//                    renderingSprite.renderImmediate(model.getRenderingBuffer().getColorBuffer()[0], uvVertex);
+//                }
+//            }
+//        }
     }
 
     /**
@@ -240,22 +240,22 @@ public class LAppView implements AutoCloseable {
             useTarget.endDraw();
 
             // LAppViewの持つフレームバッファを使うなら、スプライトへの描画はこことなる
-            if (renderingTarget == RenderingTarget.VIEW_FRAME_BUFFER && renderingSprite != null) {
-                final float[] uvVertex = {
-                    1.0f, 1.0f,
-                    0.0f, 1.0f,
-                    0.0f, 0.0f,
-                    1.0f, 0.0f
-                };
-                renderingSprite.setColor(1.0f, 1.0f, 1.0f, getSpriteAlpha(0));
-
-                // 画面サイズを取得する。
-                int maxWidth = LAppDelegate.getInstance().getWindowWidth();
-                int maxHeight = LAppDelegate.getInstance().getWindowHeight();
-
-                renderingSprite.setWindowSize(maxWidth, maxHeight);
-                renderingSprite.renderImmediate(useTarget.getColorBuffer()[0], uvVertex);
-            }
+//            if (renderingTarget == RenderingTarget.VIEW_FRAME_BUFFER && renderingSprite != null) {
+//                final float[] uvVertex = {
+//                    1.0f, 1.0f,
+//                    0.0f, 1.0f,
+//                    0.0f, 0.0f,
+//                    1.0f, 0.0f
+//                };
+//                renderingSprite.setColor(1.0f, 1.0f, 1.0f, getSpriteAlpha(0));
+//
+//                // 画面サイズを取得する。
+//                int maxWidth = LAppDelegate.getInstance().getWindowWidth();
+//                int maxHeight = LAppDelegate.getInstance().getWindowHeight();
+//
+//                renderingSprite.setWindowSize(maxWidth, maxHeight);
+//                renderingSprite.renderImmediate(useTarget.getColorBuffer()[0], uvVertex);
+//            }
         }
     }
 
@@ -274,9 +274,9 @@ public class LAppView implements AutoCloseable {
      * @param pointX スクリーンX座標
      * @param pointY スクリーンY座標
      */
-    public void onTouchesBegan(float pointX, float pointY) {
-        touchManager.touchesBegan(pointX, pointY);
-    }
+//    public void onTouchesBegan(float pointX, float pointY) {
+//        touchManager.touchesBegan(pointX, pointY);
+//    }
 
     /**
      * タッチしているときにポインターが動いたら呼ばれる
@@ -284,14 +284,14 @@ public class LAppView implements AutoCloseable {
      * @param pointX スクリーンX座標
      * @param pointY スクリーンY座標
      */
-    public void onTouchesMoved(float pointX, float pointY) {
-        float viewX = transformViewX(touchManager.getLastX());
-        float viewY = transformViewY(touchManager.getLastY());
-
-        touchManager.touchesMoved(pointX, pointY);
-
-        LAppLive2DManager.getInstance().onDrag(viewX, viewY);
-    }
+//    public void onTouchesMoved(float pointX, float pointY) {
+//        float viewX = transformViewX(touchManager.getLastX());
+//        float viewY = transformViewY(touchManager.getLastY());
+//
+//        touchManager.touchesMoved(pointX, pointY);
+//
+//        LAppLive2DManager.getInstance().onDrag(viewX, viewY);
+//    }
 
     /**
      * タッチが終了したら呼ばれる
@@ -299,35 +299,35 @@ public class LAppView implements AutoCloseable {
      * @param pointX スクリーンX座標
      * @param pointY スクリーンY座標
      */
-    public void onTouchesEnded(float pointX, float pointY) {
-        // タッチ終了
-        LAppLive2DManager live2DManager = LAppLive2DManager.getInstance();
-        live2DManager.onDrag(0.0f, 0.0f);
-
-        // シングルタップ
-        // 論理座標変換した座標を取得
-        float x = deviceToScreen.transformX(touchManager.getLastX());
-        // 論理座標変換した座標を取得
-        float y = deviceToScreen.transformY(touchManager.getLastY());
-
-        if (DEBUG_TOUCH_LOG_ENABLE) {
-            LAppPal.printLog("Touches ended x: " + x + ", y:" + y);
-        }
-
-        live2DManager.onTap(x, y);
+//    public void onTouchesEnded(float pointX, float pointY) {
+//        // タッチ終了
+//        LAppLive2DManager live2DManager = LAppLive2DManager.getInstance();
+//        live2DManager.onDrag(0.0f, 0.0f);
+//
+//        // シングルタップ
+//        // 論理座標変換した座標を取得
+//        float x = deviceToScreen.transformX(touchManager.getLastX());
+//        // 論理座標変換した座標を取得
+//        float y = deviceToScreen.transformY(touchManager.getLastY());
+//
+//        if (DEBUG_TOUCH_LOG_ENABLE) {
+//            LAppPal.printLog("Touches ended x: " + x + ", y:" + y);
+//        }
+//
+//        live2DManager.onTap(x, y);
 
         // 歯車ボタンにタップしたか
-        if (gearSprite.isHit(pointX, pointY)) {
-            isChangedModel = true;
-        }
+//        if (gearSprite.isHit(pointX, pointY)) {
+//            isChangedModel = true;
+//        }
 
         // 電源ボタンにタップしたか
-        if (powerSprite.isHit(pointX, pointY)) {
-            // アプリを終了する
-            LAppDelegate.getInstance().deactivateApp();
-        }
+//        if (powerSprite.isHit(pointX, pointY)) {
+//            // アプリを終了する
+//            LAppDelegate.getInstance().deactivateApp();
+//        }
 
-    }
+//    }
 
     /**
      * X座標をView座標に変換する
@@ -434,16 +434,16 @@ public class LAppView implements AutoCloseable {
     private CubismOffscreenSurfaceAndroid renderingBuffer = new CubismOffscreenSurfaceAndroid();
 
     private LAppSprite backSprite;
-    private LAppSprite gearSprite;
-    private LAppSprite powerSprite;
-    private LAppSprite renderingSprite;
+//    private LAppSprite gearSprite;
+//    private LAppSprite powerSprite;
+//    private LAppSprite renderingSprite;
 
     /**
      * モデルの切り替えフラグ
      */
     private boolean isChangedModel;
 
-    private final TouchManager touchManager = new TouchManager();
+//    private final TouchManager touchManager = new TouchManager();
 
     /**
      * シェーダー作成委譲クラス

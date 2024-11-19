@@ -96,9 +96,9 @@ public class LAppModel extends CubismUserModel {
         final float deltaTimeSeconds = LAppPal.getDeltaTime();
         userTimeSeconds += deltaTimeSeconds;
 
-        dragManager.update(deltaTimeSeconds);
-        dragX = dragManager.getX();
-        dragY = dragManager.getY();
+//        dragManager.update(deltaTimeSeconds);
+//        dragX = dragManager.getX();
+//        dragY = dragManager.getY();
 
         // モーションによるパラメーター更新の有無
         boolean isMotionUpdated = false;
@@ -129,10 +129,10 @@ public class LAppModel extends CubismUserModel {
         }
 
         // expression
-        if (expressionManager != null) {
-            // 表情でパラメータ更新（相対変化）
-            expressionManager.updateMotion(model, deltaTimeSeconds);
-        }
+//        if (expressionManager != null) {
+//            // 表情でパラメータ更新（相対変化）
+//            expressionManager.updateMotion(model, deltaTimeSeconds);
+//        }
 
         // ドラッグ追従機能
         // ドラッグによる顔の向きの調整
@@ -148,9 +148,9 @@ public class LAppModel extends CubismUserModel {
         model.addParameterValue(idParamEyeBallY, dragY);
 
         // Breath Function
-        if (breath != null) {
-            breath.updateParameters(model, deltaTimeSeconds);
-        }
+//        if (breath != null) {
+//            breath.updateParameters(model, deltaTimeSeconds);
+//        }
 
         // Physics Setting
         if (physics != null) {
@@ -169,9 +169,9 @@ public class LAppModel extends CubismUserModel {
         }
 
         // Pose Setting
-        if (pose != null) {
-            pose.updateParameters(model, deltaTimeSeconds);
-        }
+//        if (pose != null) {
+//            pose.updateParameters(model, deltaTimeSeconds);
+//        }
 
         model.update();
     }
@@ -437,24 +437,24 @@ public class LAppModel extends CubismUserModel {
         }
 
         // load expression files(.exp3.json)
-        {
-            if (modelSetting.getExpressionCount() > 0) {
-                final int count = modelSetting.getExpressionCount();
-
-                for (int i = 0; i < count; i++) {
-                    String name = modelSetting.getExpressionName(i);
-                    String path = modelSetting.getExpressionFileName(i);
-                    path = modelHomeDirectory + path;
-
-                    byte[] buffer = createBuffer(path);
-                    CubismExpressionMotion motion = loadExpression(buffer);
-
-                    if (motion != null) {
-                        expressions.put(name, motion);
-                    }
-                }
-            }
-        }
+//        {
+//            if (modelSetting.getExpressionCount() > 0) {
+//                final int count = modelSetting.getExpressionCount();
+//
+//                for (int i = 0; i < count; i++) {
+//                    String name = modelSetting.getExpressionName(i);
+//                    String path = modelSetting.getExpressionFileName(i);
+//                    path = modelHomeDirectory + path;
+//
+//                    byte[] buffer = createBuffer(path);
+//                    CubismExpressionMotion motion = loadExpression(buffer);
+//
+//                    if (motion != null) {
+//                        expressions.put(name, motion);
+//                    }
+//                }
+//            }
+//        }
 
         // Physics
         {
@@ -468,31 +468,31 @@ public class LAppModel extends CubismUserModel {
         }
 
         // Pose
-        {
-            String path = modelSetting.getPoseFileName();
-            if (!path.equals("")) {
-                String modelPath = modelHomeDirectory + path;
-                byte[] buffer = createBuffer(modelPath);
-                loadPose(buffer);
-            }
-        }
+//        {
+//            String path = modelSetting.getPoseFileName();
+//            if (!path.equals("")) {
+//                String modelPath = modelHomeDirectory + path;
+//                byte[] buffer = createBuffer(modelPath);
+//                loadPose(buffer);
+//            }
+//        }
 
         // Load eye blink data
-        if (modelSetting.getEyeBlinkParameterCount() > 0) {
-            eyeBlink = CubismEyeBlink.create(modelSetting);
-        }
+//        if (modelSetting.getEyeBlinkParameterCount() > 0) {
+//            eyeBlink = CubismEyeBlink.create(modelSetting);
+//        }
 
         // Load Breath Data
-        breath = CubismBreath.create();
-        List<CubismBreath.BreathParameterData> breathParameters = new ArrayList<CubismBreath.BreathParameterData>();
-
-        breathParameters.add(new CubismBreath.BreathParameterData(idParamAngleX, 0.0f, 15.0f, 6.5345f, 0.5f));
-        breathParameters.add(new CubismBreath.BreathParameterData(idParamAngleY, 0.0f, 8.0f, 3.5345f, 0.5f));
-        breathParameters.add(new CubismBreath.BreathParameterData(idParamAngleZ, 0.0f, 10.0f, 5.5345f, 0.5f));
-        breathParameters.add(new CubismBreath.BreathParameterData(idParamBodyAngleX, 0.0f, 4.0f, 15.5345f, 0.5f));
-        breathParameters.add(new CubismBreath.BreathParameterData(CubismFramework.getIdManager().getId(ParameterId.BREATH.getId()), 0.5f, 0.5f, 3.2345f, 0.5f));
-
-        breath.setParameters(breathParameters);
+//        breath = CubismBreath.create();
+//        List<CubismBreath.BreathParameterData> breathParameters = new ArrayList<CubismBreath.BreathParameterData>();
+//
+//        breathParameters.add(new CubismBreath.BreathParameterData(idParamAngleX, 0.0f, 15.0f, 6.5345f, 0.5f));
+//        breathParameters.add(new CubismBreath.BreathParameterData(idParamAngleY, 0.0f, 8.0f, 3.5345f, 0.5f));
+//        breathParameters.add(new CubismBreath.BreathParameterData(idParamAngleZ, 0.0f, 10.0f, 5.5345f, 0.5f));
+//        breathParameters.add(new CubismBreath.BreathParameterData(idParamBodyAngleX, 0.0f, 4.0f, 15.5345f, 0.5f));
+//        breathParameters.add(new CubismBreath.BreathParameterData(CubismFramework.getIdManager().getId(ParameterId.BREATH.getId()), 0.5f, 0.5f, 3.2345f, 0.5f));
+//
+//        breath.setParameters(breathParameters);
 
         // Load UserData
         {
@@ -506,16 +506,16 @@ public class LAppModel extends CubismUserModel {
 
 
         // EyeBlinkIds
-        int eyeBlinkIdCount = modelSetting.getEyeBlinkParameterCount();
-        for (int i = 0; i < eyeBlinkIdCount; i++) {
-            eyeBlinkIds.add(modelSetting.getEyeBlinkParameterId(i));
-        }
+//        int eyeBlinkIdCount = modelSetting.getEyeBlinkParameterCount();
+//        for (int i = 0; i < eyeBlinkIdCount; i++) {
+//            eyeBlinkIds.add(modelSetting.getEyeBlinkParameterId(i));
+//        }
 
         // LipSyncIds
-        int lipSyncIdCount = modelSetting.getLipSyncParameterCount();
-        for (int i = 0; i < lipSyncIdCount; i++) {
-            lipSyncIds.add(modelSetting.getLipSyncParameterId(i));
-        }
+//        int lipSyncIdCount = modelSetting.getLipSyncParameterCount();
+//        for (int i = 0; i < lipSyncIdCount; i++) {
+//            lipSyncIds.add(modelSetting.getLipSyncParameterId(i));
+//        }
 
         if (modelSetting == null || modelMatrix == null) {
             LAppPal.printLog("Failed to setupModel().");
@@ -533,10 +533,10 @@ public class LAppModel extends CubismUserModel {
         model.saveParameters();
 
         // Load motions
-        for (int i = 0; i < modelSetting.getMotionGroupCount(); i++) {
-            String group = modelSetting.getMotionGroupName(i);
-            preLoadMotionGroup(group);
-        }
+//        for (int i = 0; i < modelSetting.getMotionGroupCount(); i++) {
+//            String group = modelSetting.getMotionGroupName(i);
+//            preLoadMotionGroup(group);
+//        }
 
         motionManager.stopAllMotions();
 
