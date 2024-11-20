@@ -52,6 +52,8 @@ public class LAppModel extends CubismUserModel {
         idParamBodyAngleX = idManager.getId(ParameterId.BODY_ANGLE_X.getId());
         idParamEyeBallX = idManager.getId(ParameterId.EYE_BALL_X.getId());
         idParamEyeBallY = idManager.getId(ParameterId.EYE_BALL_Y.getId());
+        idParamEyeROpen = idManager.getId(ParameterId.EYE_R_OPEN.getId());
+        idParamEyeLOpen = idManager.getId(ParameterId.EYE_L_OPEN.getId());
     }
 
     public void loadAssets(final String dir, final String fileName) {
@@ -92,7 +94,7 @@ public class LAppModel extends CubismUserModel {
     /**
      * モデルの更新処理。モデルのパラメーターから描画状態を決定する
      */
-    public void update() {
+    public void update(boolean eyeROpen, boolean eyeLOpen) {
         final float deltaTimeSeconds = LAppPal.getDeltaTime();
         userTimeSeconds += deltaTimeSeconds;
 
@@ -101,32 +103,32 @@ public class LAppModel extends CubismUserModel {
 //        dragY = dragManager.getY();
 
         // モーションによるパラメーター更新の有無
-        boolean isMotionUpdated = false;
+//        boolean isMotionUpdated = false;
 
 //         前回セーブされた状態をロード
-        model.loadParameters();
+//        model.loadParameters();
 
         // モーションの再生がない場合、待機モーションの中からランダムで再生する
-        if (motionManager.isFinished()) {
-            startRandomMotion(LAppDefine.MotionGroup.IDLE.getId(), LAppDefine.Priority.IDLE.getPriority());
-        } else {
-            // モーションを更新
-            isMotionUpdated = motionManager.updateMotion(model, deltaTimeSeconds);
-        }
+//        if (motionManager.isFinished()) {
+//            startRandomMotion(LAppDefine.MotionGroup.IDLE.getId(), LAppDefine.Priority.IDLE.getPriority());
+//        } else {
+//            // モーションを更新
+//            isMotionUpdated = motionManager.updateMotion(model, deltaTimeSeconds);
+//        }
 
         // モデルの状態を保存
-        model.saveParameters();
+//        model.saveParameters();
 
         // 不透明度
-        opacity = model.getModelOpacity();
+//        opacity = model.getModelOpacity();
 
         // eye blink
         // メインモーションの更新がないときだけまばたきする
-        if (!isMotionUpdated) {
-            if (eyeBlink != null) {
-                eyeBlink.updateParameters(model, deltaTimeSeconds);
-            }
-        }
+//        if (!isMotionUpdated) {
+//            if (eyeBlink != null) {
+//                eyeBlink.updateParameters(model, deltaTimeSeconds);
+//            }
+//        }
 
         // expression
 //        if (expressionManager != null) {
@@ -136,16 +138,26 @@ public class LAppModel extends CubismUserModel {
 
         // ドラッグ追従機能
         // ドラッグによる顔の向きの調整
-        model.addParameterValue(idParamAngleX, dragX * 30); // -30から30の値を加える
-        model.addParameterValue(idParamAngleY, dragY * 30);
-        model.addParameterValue(idParamAngleZ, dragX * dragY * (-30));
+//        model.addParameterValue(idParamAngleX, dragX * 30); // -30から30の値を加える
+//        model.addParameterValue(idParamAngleY, dragY * 30);
+//        model.addParameterValue(idParamAngleZ, dragX * dragY * (-30));
 
         // ドラッグによる体の向きの調整
-        model.addParameterValue(idParamBodyAngleX, dragX * 10); // -10から10の値を加える
+//        model.addParameterValue(idParamBodyAngleX, dragX * 10); // -10から10の値を加える
 
         // ドラッグによる目の向きの調整
-        model.addParameterValue(idParamEyeBallX, dragX);  // -1から1の値を加える
-        model.addParameterValue(idParamEyeBallY, dragY);
+//        Random random = new Random();
+//        float randomF = -1.0f + (2.0f * random.nextFloat());
+        float a = 1f;
+        if (!eyeROpen) {
+            a = -1f;
+        }
+        float b = 1f;
+        if (!eyeLOpen) {
+            b = -1f;
+        }
+        model.addParameterValue(idParamEyeROpen, a);  // -1から1の値を加える
+        model.addParameterValue(idParamEyeLOpen, b);
 
         // Breath Function
 //        if (breath != null) {
@@ -153,20 +165,20 @@ public class LAppModel extends CubismUserModel {
 //        }
 
         // Physics Setting
-        if (physics != null) {
-            physics.evaluate(model, deltaTimeSeconds);
-        }
+//        if (physics != null) {
+//            physics.evaluate(model, deltaTimeSeconds);
+//        }
 
         // Lip Sync Setting
-        if (lipSync) {
-            // リアルタイムでリップシンクを行う場合、システムから音量を取得して0~1の範囲で値を入力します
-            float value = 0.0f;
-
-            for (int i = 0; i < lipSyncIds.size(); i++) {
-                CubismId lipSyncId = lipSyncIds.get(i);
-                model.addParameterValue(lipSyncId, value, 0.8f);
-            }
-        }
+//        if (lipSync) {
+//            // リアルタイムでリップシンクを行う場合、システムから音量を取得して0~1の範囲で値を入力します
+//            float value = 0.0f;
+//
+//            for (int i = 0; i < lipSyncIds.size(); i++) {
+//                CubismId lipSyncId = lipSyncIds.get(i);
+//                model.addParameterValue(lipSyncId, value, 0.8f);
+//            }
+//        }
 
         // Pose Setting
 //        if (pose != null) {
@@ -673,6 +685,8 @@ public class LAppModel extends CubismUserModel {
      * パラメーターID: ParamEyeBallY
      */
     private final CubismId idParamEyeBallY;
+    private final CubismId idParamEyeROpen;
+    private final CubismId idParamEyeLOpen;
 
     /**
      * フレームバッファ以外の描画先

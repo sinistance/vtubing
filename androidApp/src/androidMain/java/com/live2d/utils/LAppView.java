@@ -144,7 +144,7 @@ public class LAppView implements AutoCloseable {
     }
 
     // 描画する
-    public void render() {
+    public void render(float eyeBallX, float eyeBallY) {
         // 画面サイズを取得する。
         int maxWidth = LAppDelegate.getInstance().getWindowWidth();
         int maxHeight = LAppDelegate.getInstance().getWindowHeight();

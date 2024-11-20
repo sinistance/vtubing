@@ -116,7 +116,7 @@ public class LAppDelegate {
         glClearDepthf(1.0f);
 
         if (view != null) {
-            view.render();
+            view.render(0,0);
         }
 
         // アプリケーションを非アクティブにする

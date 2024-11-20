@@ -69,7 +69,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.koin.android)
     implementation(libs.koin.compose)
-    implementation(libs.koin.compose.navigation)
+//    implementation(libs.koin.compose.navigation)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.coil.compose.core)
     implementation(libs.coil.compose)
@@ -81,6 +81,11 @@ dependencies {
     implementation(files("libs/Live2DCubismCore.aar"))
     implementation(files("libs/Live2DCubismFramework.aar"))
     implementation("androidx.multidex:multidex:2.0.1")
+    implementation("androidx.camera:camera-core:1.4.0")
+    implementation("androidx.camera:camera-camera2:1.4.0")
+    implementation("androidx.camera:camera-lifecycle:1.4.0")
+    implementation("androidx.camera:camera-view:1.4.0")
+    implementation("com.google.mediapipe:tasks-vision:0.10.18")
     debugImplementation(libs.androidx.ui.tooling)
 }
 

@@ -111,7 +111,7 @@ public class LAppLive2DManager {
             // モデル1体描画前コール
             LAppDelegate.getInstance().getView().preModelDraw(model);
 
-            model.update();
+//            model.update(true,true);
 
             model.draw(projection);     // 参照渡しなのでprojectionは変質する
 
